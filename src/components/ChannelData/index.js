@@ -1,12 +1,22 @@
-import React from "react";
-import ChannelMessages from "../ChannelMessages";
+import React, { useRef, useEffect } from "react";
+import ChannelMessages, { Mention } from "../ChannelMessages";
 import { Container, Messages, InputWrapper, Input, InputIcon } from "./styles";
+
 const ChannelData = () => {
+  const messageRef = useRef(null);
+  useEffect(() => {
+    const div = messageRef.current;
+    if (div) {
+      div.scrollTop = div.scrollHeight;
+    }
+  }, [messageRef]);
   return (
     <Container>
-      <Messages>
-        <ChannelMessages author="Fulano" date="22/08/2020" content="ola" />
-        {/* <ChannelMessages
+      <Messages ref={messageRef}>
+        {Array.from(Array(15).keys()).map((n) => (
+          <ChannelMessages author="Fulano" date="22/08/2020" content="ola" />
+        ))}
+        <ChannelMessages
           author="Fulano"
           date="22/08/2020"
           content={
@@ -14,7 +24,9 @@ const ChannelData = () => {
               <Mention>@Fulano</Mention>, ola mano{" "}
             </>
           }
-        /> */}
+          hasMention
+          isBot
+        />
       </Messages>
       <InputWrapper>
         <Input type="text" placeholder="Conversar em #chat-livre" />

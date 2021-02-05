@@ -1,6 +1,8 @@
 import React from "react";
 
 import { Container, Avatar, Message, Header, Content } from "./styles";
+export { Mention } from "./styles";
+
 const ChannelMessages = (props) => {
   const { author, date, content, hasMention, isBot } = props;
   return (
